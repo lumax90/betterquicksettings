@@ -27,6 +27,49 @@ Built with **C# · .NET 10 · WPF**. Licensed under **MIT**.
   32 MB of content, with re-copy and deletion controls.
 - **Tools:** a focus timer, casting, and quick links to Windows settings.
 
+## A closer look
+
+### Drop now, use it later
+
+Drag a file over the **network/volume area** and the shelf balloon appears—no
+need to open the panel first. Drop it there, then drag the saved copy into another
+application whenever you need it.
+
+<img src="docs/images/drop-to-shelf.png" width="780" alt="Illustration of dragging Project brief.pdf to the Drop to shelf balloon over the Windows network and volume area" />
+
+*Illustrated drag gesture with the real source-XAML drop target; the desktop,
+file, and cursor are staged for documentation.*
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>Screenshots &amp; file shelf</h3>
+      <p>Recent captures and reusable file copies, ready to drag into another app.</p>
+      <img src="docs/images/files.png" width="360" alt="Files tab with six screenshot thumbnails, a PDF, an assets folder, and a saved image" />
+    </td>
+    <td width="50%" valign="top">
+      <h3>Clipboard history</h3>
+      <p>Find a link, a snippet, or an image you copied earlier. Click to copy again.</p>
+      <img src="docs/images/history.png" width="360" alt="History tab showing searchable copied text, a GitHub link, and image entries" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>A place for quick notes</h3>
+      <p>Capture a thought, keep a draft, and come back to your saved notes.</p>
+      <img src="docs/images/notes.png" width="360" alt="Notes tab with a new draft and three saved notes" />
+    </td>
+    <td width="50%" valign="top">
+      <h3>Sound, without the detour</h3>
+      <p>Choose an output, enable automatic headphone switching, and control playback.</p>
+      <img src="docs/images/audio-output.png" width="360" alt="Expanded audio output picker with headphones, speakers, volume, brightness, and media controls" />
+    </td>
+  </tr>
+</table>
+
+*Panel previews use the actual application XAML and synthetic sample content.
+Live transparency depends on the Windows compositor and the desktop behind it.*
+
 ## Build and run
 
 Requires **Windows 11 x64** and the **[.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)**.

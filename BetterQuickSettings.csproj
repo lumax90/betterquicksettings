@@ -27,6 +27,7 @@
     <Compile Remove="checks/**/*.cs" />
     <Compile Remove="artifacts/**/*.cs" />
     <Page Remove="artifacts/**/*.xaml" />
+    <Page Remove="design/**/*.xaml" />
     <Compile Include="checks/GlassProbe.cs" />
     <Compile Include="checks/InteractionProbe.cs" />
     <Compile Include="checks/CadenceProbe.cs" />

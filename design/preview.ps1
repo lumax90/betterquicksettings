@@ -3,7 +3,9 @@ param(
     [ValidateRange(310, 1400)][double]$PanelHeight = 360,
     [ValidateSet('Dark', 'Light')][string]$Backdrop = 'Dark',
     [ValidateRange(0, 100)][double]$Glass = 55,
-    [switch]$Populated
+    [switch]$Populated,
+    [switch]$Showcase,
+    [ValidateRange(1, 3)][int]$Scale = 1
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
@@ -81,6 +83,18 @@ $sampleFiles = @(
     [pscustomobject]@{ Name = 'Project brief.pdf'; Details = 'PDF - 240 KB'; Glyph = [string][char]0xE8A5; Thumbnail = $null },
     [pscustomobject]@{ Name = 'Assets'; Details = 'Folder'; Glyph = [string][char]0xE8B7; Thumbnail = $null }
 )
+if ($Showcase) {
+    $fixtures = @(& (Join-Path $PSScriptRoot 'showcase-fixtures.ps1') -OutputDirectory (Join-Path $OutputDirectory 'fixtures'))
+    $sampleThumbnail = $fixtures[0].Uri
+    $sampleShots = @(for ($i=0; $i -lt $fixtures.Count; $i++) { [pscustomobject]@{
+        Name=$fixtures[$i].Name; TimeLabel=('14:' + (36-$i*3)); Thumbnail=$fixtures[$i].Uri; HasThumbnail=$true; IsScreenshot=$true
+    } })
+    $sampleFiles = @(
+        [pscustomobject]@{Name='Project brief.pdf'; Details='PDF - 240 KB'; Glyph=[string][char]0xE8A5; Thumbnail=$null},
+        [pscustomobject]@{Name='Brand assets'; Details='Folder'; Glyph=[string][char]0xE8B7; Thumbnail=$null},
+        [pscustomobject]@{Name='Mountain trail.png'; Details='PNG - 1.2 MB'; Glyph=[string][char]0xEB9F; Thumbnail=$fixtures[2].Uri}
+    )
+}
 $surface.DataContext = [pscustomobject]@{
     Volume = 35.0; Brightness = 72.0; AudioAvailable = $true; BrightnessAvailable = $true
     VolumeGlyph = [string][char]0xE767; OutputName = 'WH-1000XM5'; Outputs = @()
@@ -109,6 +123,26 @@ $surface.DataContext = [pscustomobject]@{
         Available = $true; Title = 'Midnight City'; Artist = 'M83'; Source = 'Spotify'
         CanPrevious = $true; CanPlay = $true; CanNext = $true; Artwork = $null
     }
+}
+if ($Showcase) {
+    $surface.DataContext.Note = 'Save the idea now. Come back to the details later.'
+    $surface.DataContext.NoteCount = ($surface.DataContext.Note.Length.ToString() + ' characters')
+    $surface.DataContext.CanAddNote = $true
+    $surface.DataContext.Notes = @(
+        [pscustomobject]@{Title='Release checklist'; Excerpt='Update the docs, collect screenshots, ship the build.'; ModifiedLabel='14:32'},
+        [pscustomobject]@{Title='Weekend plans'; Excerpt='Coffee, a mountain trail, and a camera.'; ModifiedLabel='13:05'},
+        [pscustomobject]@{Title='Small improvements'; Excerpt='Less clicking. More room for the things I use.'; ModifiedLabel='Nov 10'}
+    )
+    $surface.DataContext.Outputs = @(
+        [pscustomobject]@{Name='WH-1000XM5'; IsDefault=$true},
+        [pscustomobject]@{Name='Speakers'; IsDefault=$false}
+    )
+    $surface.DataContext.ClipboardItems = @(
+        [pscustomobject]@{Preview='https://github.com/lumax90/betterquicksettings'; Details='Text'; TimeLabel='14:36'; CopyLabel='Copy to clipboard'; IsImage=$false; IsText=$true; Thumbnail=$null},
+        [pscustomobject]@{Preview='Image'; Details='Image - 960 x 600'; TimeLabel='14:30'; CopyLabel='Copy to clipboard'; IsImage=$true; IsText=$false; Thumbnail=$fixtures[2].Uri},
+        [pscustomobject]@{Preview='Remember the useful things. Keep the rest out of the way.'; Details='Text - 56 characters'; TimeLabel='14:25'; CopyLabel='Copy to clipboard'; IsImage=$false; IsText=$true; Thumbnail=$null},
+        [pscustomobject]@{Preview='Color study'; Details='Image - 960 x 600'; TimeLabel='13:58'; CopyLabel='Copy to clipboard'; IsImage=$true; IsText=$false; Thumbnail=$fixtures[1].Uri}
+    )
 }
 
 $hostPanel = New-Object System.Windows.Controls.Grid
@@ -177,7 +211,7 @@ function Capture-Source([string]$name) {
     $hostPanel.UpdateLayout()
     $width = [int][math]::Ceiling($hostPanel.ActualWidth)
     $height = [int][math]::Ceiling($hostPanel.ActualHeight)
-    $bitmap = New-Object System.Windows.Media.Imaging.RenderTargetBitmap($width, $height, 96, 96, [System.Windows.Media.PixelFormats]::Pbgra32)
+    $bitmap = New-Object System.Windows.Media.Imaging.RenderTargetBitmap(($width * $Scale), ($height * $Scale), (96 * $Scale), (96 * $Scale), [System.Windows.Media.PixelFormats]::Pbgra32)
     $bitmap.Render($hostPanel)
     $encoder = New-Object System.Windows.Media.Imaging.PngBitmapEncoder
     $encoder.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($bitmap))
@@ -188,6 +222,13 @@ function Capture-Source([string]$name) {
 }
 
 Capture-Source 'controls'
+if ($Showcase) {
+    $window.FindName('LatestScreenshotPreviewHost').Visibility = 'Collapsed'
+    $window.FindName('OutputPicker').Visibility = 'Visible'
+    Capture-Source 'audio-output'
+    $window.FindName('OutputPicker').Visibility = 'Collapsed'
+    $window.FindName('LatestScreenshotPreviewHost').Visibility = 'Visible'
+}
 $tools.IsExpanded = $true
 Capture-Source 'controls-expanded'
 $controls.ScrollToBottom()
@@ -240,5 +281,21 @@ $hintSurface.Height = $hintWindow.Height
 [System.Windows.Documents.TextElement]::SetFontFamily($hintSurface, (New-Object System.Windows.Media.FontFamily('Segoe UI Variable Text, Segoe UI')))
 $hostPanel.Children.Add($hintSurface) | Out-Null
 Capture-Source 'drop-target'
+if ($Showcase) {
+    $hostPanel.Children.Clear()
+    $scene = [System.Windows.Markup.XamlReader]::Parse([System.IO.File]::ReadAllText((Join-Path $PSScriptRoot 'drop-scene.xaml')))
+    $hintSurface.Margin = [System.Windows.Thickness]::new(0)
+    $scene.FindName('DropTargetHost').Child = $hintSurface
+    [System.Windows.Documents.TextElement]::SetFontFamily($scene, [System.Windows.Media.FontFamily]::new('Segoe UI Variable Text, Segoe UI'))
+    $scene.Measure([System.Windows.Size]::new($scene.Width, $scene.Height))
+    $scene.Arrange([System.Windows.Rect]::new(0,0,$scene.Width,$scene.Height))
+    $scene.UpdateLayout()
+    $bitmap = [System.Windows.Media.Imaging.RenderTargetBitmap]::new([int]($scene.Width*$Scale),[int]($scene.Height*$Scale),96*$Scale,96*$Scale,[System.Windows.Media.PixelFormats]::Pbgra32)
+    $bitmap.Render($scene)
+    $encoder = [System.Windows.Media.Imaging.PngBitmapEncoder]::new()
+    $encoder.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($bitmap))
+    $file = [System.IO.File]::Create((Join-Path $OutputDirectory 'drop-to-shelf.png'))
+    try { $encoder.Save($file) } finally { $file.Dispose() }
+}
 $hintWindow.Close()
 $window.Close()

@@ -44,3 +44,16 @@ with `--data-dir` when investigating ordinary application startup.
 
 Generated output and local recovery records belong under `artifacts/` and are
 excluded from version control.
+
+## Documentation images
+
+Regenerate the README gallery without building or launching the application:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\design\screenshots.ps1
+```
+
+This renders the current source XAML at 2× resolution using synthetic text,
+image, and device fixtures. The drop-to-shelf scene inserts the real drop-target
+XAML into an illustrated desktop gesture. It is labeled as an illustration in
+the README, not as a live desktop capture. No clipboard or user files are read.

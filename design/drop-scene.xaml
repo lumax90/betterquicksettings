@@ -1,0 +1,38 @@
+<!-- Documentation illustration; the actual source-XAML drop target is inserted at render time. -->
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Width="780" Height="348" UseLayoutRounding="True">
+  <Grid.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#425969" Offset="0" /><GradientStop Color="#28384E" Offset="0.55" /><GradientStop Color="#4C465D" Offset="1" /></LinearGradientBrush></Grid.Background>
+  <Canvas>
+    <TextBlock Canvas.Left="32" Canvas.Top="27" Text="DROP TO SHELF" FontSize="10" FontWeight="SemiBold" Foreground="#B8CEDF" />
+    <TextBlock Canvas.Left="32" Canvas.Top="49" Text="No need to open the panel." FontSize="25" FontWeight="SemiBold" Foreground="#F4F7FC" />
+    <TextBlock Canvas.Left="33" Canvas.Top="89" Text="Bring a file to Wi-Fi / volume. Drop it. Pick it up later." FontSize="12" Foreground="#CBD7E5" />
+    <Border Canvas.Left="36" Canvas.Top="142" Width="249" Height="147" CornerRadius="16" Background="#70202D40" BorderBrush="#18D1E1EF" BorderThickness="1">
+      <Grid Margin="17">
+        <Grid.RowDefinitions><RowDefinition Height="24" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <TextBlock Text="Your file" FontSize="10" Foreground="#B6C6D7" />
+        <Border Grid.Row="1" Padding="12" CornerRadius="10" Background="#243B526B">
+          <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="36" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <TextBlock Text="&#xE8A5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="26" Foreground="#D4E3F8" />
+            <StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock Text="Project brief.pdf" FontSize="12" Foreground="#F4F7FC" /><TextBlock Text="PDF · 240 KB" FontSize="10" Foreground="#B6C6D7" Margin="0,5,0,0" /></StackPanel>
+          </Grid>
+        </Border>
+      </Grid>
+    </Border>
+    <Path Data="M 307,228 C 378,227 381,186 429,207 C 468,226 462,274 510,280" Stroke="#92C5D8EA" StrokeThickness="2" StrokeDashArray="3,4" />
+    <Path Data="M 499,271 L 510,280 L 497,285" Stroke="#C5D8EA" StrokeThickness="2" StrokeLineJoin="Round" />
+    <Border Canvas.Left="489" Canvas.Top="153" Padding="13,8" CornerRadius="10" Background="#E8324053">
+      <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE8A5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="17" Margin="0,0,9,0" Foreground="#D4E3F8" /><TextBlock Text="Project brief.pdf" Foreground="#F4F7FC" FontSize="11" /></StackPanel>
+    </Border>
+    <TextBlock Canvas.Left="529" Canvas.Top="220" Text="Appears while dragging" FontSize="10" Foreground="#CDD9E8" />
+    <Border Canvas.Left="0" Canvas.Top="300" Width="780" Height="48" Background="#EE172131">
+      <Grid HorizontalAlignment="Right" Margin="0,0,17,0"><Grid.ColumnDefinitions><ColumnDefinition Width="76" /><ColumnDefinition Width="65" /></Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"><TextBlock Text="&#xE701;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="#ECF1F9" Margin="8,0" /><TextBlock Text="&#xE767;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="#ECF1F9" Margin="8,0" /></StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock Text="14:36" Foreground="#E9EEF5" FontSize="10" HorizontalAlignment="Right" /><TextBlock Text="11/11/2026" Foreground="#B7C6D8" FontSize="9" Margin="0,3,0,0" /></StackPanel>
+      </Grid>
+    </Border>
+    <Border x:Name="DropTargetHost" Canvas.Left="500" Canvas.Top="258" Width="194" Height="66" CornerRadius="8" Background="#E03C4759" />
+    <Path Canvas.Left="664" Canvas.Top="290" Data="M 0,0 L 0,24 L 6,18 L 11,28 L 16,25 L 11,16 L 20,16 Z" Fill="#F9FBFF" Stroke="#152030" StrokeThickness="1.5" />
+    <Border Canvas.Left="681" Canvas.Top="304" Background="#F4F7FD" CornerRadius="3" Padding="2"><TextBlock Text="+" Foreground="#1C354C" FontSize="11" FontWeight="Bold" /></Border>
+  </Canvas>
+</Grid>
