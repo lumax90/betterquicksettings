@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/app.ico</ApplicationIcon>
+    <AssemblyName>BetterQuickSettings</AssemblyName>
+    <RootNamespace>BetterQuickSettings</RootNamespace>
+    <Product>BetterQuickSettings</Product>
+    <Title>BetterQuickSettings</Title>
+    <Version>0.1.0</Version>
+    <Description>A compact, native Quick Settings replacement for Windows 11.</Description>
+    <RepositoryUrl>https://github.com/lumax90/betterquicksettings</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NAudio.Wasapi" Version="2.2.1" />
+    <PackageReference Include="System.Management" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="checks/**/*.cs" />
+    <Compile Remove="artifacts/**/*.cs" />
+    <Page Remove="artifacts/**/*.xaml" />
+    <Compile Include="checks/GlassProbe.cs" />
+    <Compile Include="checks/InteractionProbe.cs" />
+    <Compile Include="checks/CadenceProbe.cs" />
+    <Compile Include="checks/ProductProbe.cs" />
+    <Compile Include="checks/ExternalDropProbe.cs" />
+    <Compile Include="checks/UtilityProbe.cs" />
+    <None Update="README.md;LICENSE;THIRD_PARTY_NOTICES.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Update="Assets/app.ico" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="CopyRuntimeNotices" AfterTargets="Publish">
+    <Copy SourceFiles="%(ResolvedRuntimePack.PackageDirectory)/LICENSE.TXT"
+          DestinationFiles="$(PublishDir)licenses/%(ResolvedRuntimePack.NuGetPackageId)-LICENSE.txt"
+          Condition="Exists('%(ResolvedRuntimePack.PackageDirectory)/LICENSE.TXT')" />
+    <Copy SourceFiles="%(ResolvedRuntimePack.PackageDirectory)/LICENSE"
+          DestinationFiles="$(PublishDir)licenses/%(ResolvedRuntimePack.NuGetPackageId)-LICENSE.txt"
+          Condition="Exists('%(ResolvedRuntimePack.PackageDirectory)/LICENSE')" />
+    <Copy SourceFiles="%(ResolvedRuntimePack.PackageDirectory)/THIRD-PARTY-NOTICES.TXT"
+          DestinationFiles="$(PublishDir)licenses/%(ResolvedRuntimePack.NuGetPackageId)-THIRD-PARTY-NOTICES.txt"
+          Condition="Exists('%(ResolvedRuntimePack.PackageDirectory)/THIRD-PARTY-NOTICES.TXT')" />
+  </Target>
+</Project>
