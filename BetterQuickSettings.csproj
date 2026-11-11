@@ -12,7 +12,9 @@
     <RootNamespace>BetterQuickSettings</RootNamespace>
     <Product>BetterQuickSettings</Product>
     <Title>BetterQuickSettings</Title>
-    <Version>0.1.0</Version>
+    <Version>0.1.0-beta.1</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.1</FileVersion>
     <Description>A compact, native Quick Settings replacement for Windows 11.</Description>
     <RepositoryUrl>https://github.com/lumax90/betterquicksettings</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

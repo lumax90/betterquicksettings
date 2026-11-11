@@ -5,6 +5,19 @@ existing network/volume area or with **Win + A**.
 
 Built with **C# · .NET 10 · WPF**. Licensed under **MIT**.
 
+## Download — v0.1.0-beta.1
+
+**Early beta:** bugs and Windows/device compatibility issues are expected.
+
+| Windows 11 x64 | |
+| --- | --- |
+| **[Download Setup.exe](https://github.com/lumax90/betterquicksettings/releases/download/v0.1.0-beta.1/BetterQuickSettings-0.1.0-beta.1-win-x64-Setup.exe)** | Recommended. Per-user install, Start menu shortcut, and uninstall support. |
+| **[Download Portable.zip](https://github.com/lumax90/betterquicksettings/releases/download/v0.1.0-beta.1/BetterQuickSettings-0.1.0-beta.1-win-x64-Portable.zip)** | Extract everything, then run `BetterQuickSettings.exe`. No installation. |
+
+Both include .NET; no separate runtime installation is needed. Close any running
+copy before installing or updating. **This beta is unsigned**, so Windows may
+display a SmartScreen warning. See the [release notes and checksums](https://github.com/lumax90/betterquicksettings/releases/tag/v0.1.0-beta.1).
+
 <img src="docs/images/controls.png" width="376" alt="BetterQuickSettings controls with sample data" />
 
 *Source-XAML preview with sample data. Live glass uses the Windows compositor.*

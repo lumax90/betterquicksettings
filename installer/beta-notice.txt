@@ -1,0 +1,18 @@
+BetterQuickSettings - Beta
+
+This is an early beta release. Bugs and Windows/device compatibility issues are
+expected. Please report reproducible problems on GitHub:
+https://github.com/lumax90/betterquicksettings/issues
+
+Windows 11 is required. This package includes the .NET runtime and installs for
+the current user without requiring administrator privileges.
+
+Close BetterQuickSettings (including earlier Ada previews) from its tray menu
+before installing, updating, or uninstalling.
+
+Notes, clipboard history, and shelf copies are saved separately from the program
+files. Uninstalling leaves this personal data intact.
+
+This beta is not code-signed. Windows may display an unknown-publisher or
+SmartScreen warning. Verify the download source and SHA-256 checksum before
+deciding whether to run it. Do not disable your Windows security protections.

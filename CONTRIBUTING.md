@@ -57,3 +57,25 @@ This renders the current source XAML at 2× resolution using synthetic text,
 image, and device fixtures. The drop-to-shelf scene inserts the real drop-target
 XAML into an illustrated desktop gesture. It is labeled as an illustration in
 the README, not as a live desktop capture. No clipboard or user files are read.
+
+## Packaging a release
+
+Install the .NET 10 SDK and [Inno Setup 7](https://jrsoftware.org/isinfo.php), then run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\package.ps1
+```
+
+Use `-IsccPath "C:\path\to\ISCC.exe"` if the compiler is not discovered.
+The package script reads `Version` and `FileVersion` from the project, publishes
+one self-contained x64 payload, and creates matching Setup and Portable packages
+plus `SHA256SUMS.txt` under `artifacts/releases/<version>/`. Existing output is not
+overwritten; use a new `-OutputRoot` for a rebuild.
+
+The installer uses a stable AppId for upgrades, runs per-user, and checks the
+application mutex before install/uninstall. It must never delete the separate
+Local AppData directory. Startup is opt-in through application Preferences.
+
+Publish both packages as assets of the **same release tag**. Mark beta versions
+as GitHub prereleases and include known limitations and signing status in the notes.
+This script only builds local packages; it does not upload or publish a release.
