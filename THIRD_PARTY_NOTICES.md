@@ -26,3 +26,11 @@ distribution. Canonical repositories:
 Windows icons use the operating system's Segoe Fluent Icons / Segoe MDL2 Assets
 fonts; no Microsoft font files are redistributed. Media thumbnails come from the
 user's active Windows media session and are not bundled assets.
+
+## Inno Setup
+
+The Windows Setup executable is created with [Inno Setup](https://jrsoftware.org/).
+Copyright (C) 1997-2026 Jordan Russell. Portions Copyright (C) 2000-2026 Martijn Laan.
+The installer engine is used unmodified under the
+[Inno Setup license](https://github.com/jrsoftware/issrc/blob/main/license.txt).
+Inno Setup is not a runtime dependency of the portable application.

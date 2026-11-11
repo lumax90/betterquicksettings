@@ -65,7 +65,7 @@ Read BETA-NOTICE.txt before using this early release.
 $prefix = "BetterQuickSettings-$version-win-x64"
 $portable = Join-Path $release "$prefix-Portable.zip"
 Compress-Archive -Path (Join-Path $payload '*') -DestinationPath $portable -CompressionLevel Optimal
-& $IsccPath "/DAppVersion=$version" "/DFileVersion=$fileVersion" "/DPublishDir=$payload" "/DReleaseDir=$release" `
+& $IsccPath /Q "/DAppVersion=$version" "/DFileVersion=$fileVersion" "/DPublishDir=$payload" "/DReleaseDir=$release" `
     (Join-Path $root 'installer\BetterQuickSettings.iss')
 if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed.' }
 $setup = Join-Path $release "$prefix-Setup.exe"
